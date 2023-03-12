@@ -2,10 +2,18 @@ import requests
 from bs4 import BeautifulSoup
 import time
 
-def get_on_page_links(wiki_page):
-  url = 'https://en.wikipedia.org/wiki/' + wiki_page
-  response = requests.get(url)
-  soup = BeautifulSoup(response.content, 'html.parser')
+class Wiki_Page():
+    def get_html_content(self, wiki_page):
+        url = 'https://en.wikipedia.org/wiki/' + wiki_page
+        response = requests.get(url)
+        return response.content
+
+
+def get_on_page_links(wiki_page, Wiki_Page=Wiki_Page):
+  wiki_ = Wiki_Page()
+  response_html = wiki_.get_html_content(wiki_page)
+
+  soup = BeautifulSoup(response_html, 'html.parser')
   links = set()
   for link in soup.find_all('a'):
     link = link.get('href')
@@ -57,6 +65,15 @@ def setName():
     }
     return jsonify(response)  
 
-#  main thread of execution to start the server
 if __name__=='__main__':
-    app.run(debug=True)
+    # app.run(debug=True)
+    print(find_ladder('Fruit', 'Strawberry'))
+    # print(get_on_page_links('Fruit', Wiki_Page))
+
+def test_get_on_page_links():
+    class Fake_Wiki_Page(Wiki_Page_Interface):
+        def get_html_content(self, wiki_page):
+            
+            return '<a href="/wiki/hardik"></a>'
+
+    print(get_on_page_links('Fruit', Fake_Wiki_Page))
