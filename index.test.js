@@ -154,17 +154,3 @@ describe('Get Path and pages visited', () => {
 //       expect(res.body.length).toBeGreaterThan(0);
 //     });
 //   });
-// data = request.get_json()
-// start = data['start'].replace('https://en.wikipedia.org/wiki/', '')
-// target = data['target'].replace('https://en.wikipedia.org/wiki/', '')
-
-// start_time = time.time()
-// ladder, pagesVisited = find_ladder(start, target)
-// end_time = time.time()
-// response = {
-//     "ladder": list(map(lambda link: 'https://en.wikipedia.org/wiki/'+link, ladder)),
-//     "ladderLength": len(ladder),
-//     "pagesVisited": pagesVisited,
-//     "runTime": str(end_time-start_time) + 's'
-// }
-// return jsonify(response)
